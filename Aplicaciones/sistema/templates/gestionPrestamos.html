@@ -1,0 +1,73 @@
+{% extends "./plantilla.html" %}
+
+{% block title %} Gestión de usuarios {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-dismiss="alert"></button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2>Nuevo prestamo</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarPrestamo/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="inpISBN" id="inpISBN" class="form-control" placeholder="ISBN libro" minlength="13" maxlength="50" required>
+                    </div>
+                    <div class="form-group">    
+                        <input type="text" name="inpNumDocumento" id="inpNumDocumento" class="form-control" placeholder="Documento usuario" minlength="1" maxlength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <p class="h5 py-2"><strong>Fecha prestamo</strong></p>
+                        <input type="date" name="inpFechaPrestamo" id="inpFechaPrestamo" class="form-control" placeholder="Fecha prestamo" required>
+                    </div> 
+                    <div class="form-group">
+                        <p class="h5 py-2"><strong>Fecha devolución</strong></p>
+                        <input type="date" name="inpFechaDevolucion" id="inpFechaDevolucion" class="form-control" placeholder="Fecha devolucion" required>
+                    </div>
+                    <div class="form-group">                    
+                        <button type="submit" class="btn btn-success btn-black text-white">Guardar</button>
+                    </div>                
+                </form>
+            </div>
+        </div>        
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Prestamos</h1>
+        <div class="table-responsive py-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID prestamo</th>
+                        <th>ISBN libro</th>
+                        <th>Usuario</th>
+                        <th>Fecha prestamo</th>
+                        <th>Fecha devolución</th>   
+                        <th colspan="2">Opciones</th>                                            
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prestamo in prestamos %}
+                    <tr>
+                        <td>{{prestamo.IDprestamo}}</td>
+                        <td>{{prestamo.ISBN}}</td>
+                        <td>{{prestamo.numDocumento}}</td>
+                        <td>{{prestamo.fechaPrestamo}}</td>
+                        <td>{{prestamo.fechaDevolucion}}</td>
+                        <!--<td><a href="editarPrestamos/{{prestamo.IDprestamo}}" class="btn btn-info">Renovar</a></td>-->
+                        <td><a href="editarPrestamos/{{prestamo.IDprestamo}}" class="btn btn-info">Renovar</a></td>                       
+                        <td><a href="eliminarPrestamos/{{prestamo.IDprestamo}}" class="btn btn-danger btnEliminar">Entregar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "./plantilla.html" %}
+
+{% block title %} Actualización de libros {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Actualizar libro</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarLibro/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="inpISBN" id="inpISBN" class="form-control" placeholder="ISBN libro" value="{{libro.ISBN}}" minlength="13" maxlength="50" readonly required>
+                    </div>
+                    <div class="form-group">    
+                        <input type="text" name="inpTitulo" id="inpTitulo" class="form-control" placeholder="Titulo libro" value="{{libro.titulo}}" minlength="1" maxlength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="inpAutor" id="inpAutor" class="form-control" placeholder="Autor" value="{{libro.autor}}" minlength="1" maxlength="100" required>
+                    </div> 
+                    <div class="form-group">
+                        <input type="number" name="inpNumPaginas" id="inpNumPaginas" class="form-control" placeholder="Numero paginas" value="{{libro.numPaginas}}" required>
+                    </div>
+                    <div class="form-group">                    
+                        <button type="submit" class="btn btn-success btn-black text-white">Actualizar</button>
+                    </div>                   
+                </form>
+            </div> 
+        </div>       
+    </div>
+</div>
+{% endblock%}

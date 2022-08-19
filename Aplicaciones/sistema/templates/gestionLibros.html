@@ -1,0 +1,68 @@
+{% extends "./plantilla.html" %}
+
+{% block title %} Gestión de usuarios {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-dismiss="alert"></button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2>Crear libro</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarLibro/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="inpISBN" id="inpISBN" class="form-control" placeholder="ISBN libro" minlength="13" maxlength="50" required>
+                    </div>
+                    <div class="form-group">    
+                        <input type="text" name="inpTitulo" id="inpTitulo" class="form-control" placeholder="Titulo libro" minlength="1" maxlength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="inpAutor" id="inpAutor" class="form-control" placeholder="Autor" minlength="1" maxlength="100" required>
+                    </div> 
+                    <div class="form-group">
+                        <input type="number" name="inpNumPaginas" id="inpNumPaginas" class="form-control" placeholder="Numero paginas" required>
+                    </div>
+                    <div class="form-group">                    
+                        <button type="submit" class="btn btn-success btn-black text-white">Guardar</button>
+                    </div>                
+                </form>
+            </div>
+        </div>        
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Libros registrados</h1>
+        <div class="table-responsive py-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ISBN</th>
+                        <th>Titulo</th>
+                        <th>Autor</th>
+                        <th>Numero paginas</th>   
+                        <th colspan="2">Opciones</th>                                            
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for libro in libros %}
+                    <tr>
+                        <td>{{libro.ISBN}}</td>
+                        <td>{{libro.titulo}}</td>
+                        <td>{{libro.autor}}</td>
+                        <td>{{libro.numPaginas}}</td>
+                        <td><a href="editarLibros/{{libro.ISBN}}" class="btn btn-info">Editar</a></td>                       
+                        <td><a href="eliminarLibros/{{libro.ISBN}}" class="btn btn-danger btnEliminar">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

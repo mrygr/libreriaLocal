@@ -1,0 +1,44 @@
+{% extends "./plantilla.html" %}
+
+{% block title %} Actualización de usuarios {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Actualizar usuario</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarUsuario/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="inpDocumento" id="inpDocumento" class="form-control" placeholder="Número de identificación" value="{{usuario.numDocumento}}" readonly minlength="10" maxlength="50" required>
+                    </div>
+                    <div class="form-group">    
+                        <input type="text" name="inptipoDocumento" id="inptipoDocumento" class="form-control" placeholder="Tipo de documento" value="{{usuario.tipoDocumento}}" readonly minlength="1" maxlength="3" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="inpPrimerNombre" id="inpPrimerNombre" class="form-control" placeholder="Primer Nombre" value="{{usuario.primerNombre}}" minlength="1" maxlength="50" required>
+                    </div> 
+                    <div class="form-group">
+                        <input type="text" name="inpSegundoNombre" id="inpSegundoNombre" class="form-control" placeholder="Segundo Nombre" value="{{usuario.segundoNombre}}" minlength="1" maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="inpPrimerApellido" id="inpPrimerApellido" class="form-control" placeholder="Primer Apellido" value="{{usuario.primerApellido}}" minlength="1" maxlength="50" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="inpSegundoApellido" id="inpSegundoApellido" class="form-control" placeholder="Segundo Apellido" value="{{usuario.segundoApellido}}" minlength="1" maxlength="50" required>                     
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="inpDireccion" id="inpDireccion" class="form-control" placeholder="Dirección residencia" value="{{usuario.direccion}}" minlength="1" maxlength="100">
+                    </div>
+                    <div class="form-group">                    
+                        <input type="text" name="inpTelefono" id="inpTelefono" class="form-control" placeholder="Telefono contacto" value="{{usuario.telefono}}" minlength="1" maxlength="50">
+                    </div>
+                    <div class="form-group">                    
+                        <button type="submit" class="btn btn-success btn-black text-white">Actualizar</button>
+                    </div>                
+                </form>
+            </div> 
+        </div>       
+    </div>
+</div>
+{% endblock%}

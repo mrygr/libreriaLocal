@@ -1,0 +1,37 @@
+{% extends "./plantilla.html" %}
+
+{% block title %} Actualización de prestamo {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Actualizar libro</h2>
+        <div class="card">
+            <div class="card-body">
+                <!--<form action="/editarPrestamo/" method="POST">{% csrf_token %}-->
+                <form action="/editarPrestamo/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="inpIDprestamo" id="inpIDprestamo" class="form-control" placeholder="Codigo prestamo" value="{{prestamo.IDprestamo}}" readonly required>
+                    </div>                    
+                    <div class="form-group">
+                        <input type="text" name="inpISBN" id="inpISBN" class="form-control" placeholder="ISBN libro" value="{{prestamo.ISBN}}" readonly required>
+                    </div>
+                    <div class="form-group">    
+                        <input type="text" name="inpNumDocumento" id="inpNumDocumento" class="form-control" placeholder="Documento usuario" value="{{prestamo.numDocumento}}" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" name="inpFechaPrestamo" id="inpFechaPrestamo" class="form-control" value="{{prestamo.fechaPrestamo}}" readonly required>
+                    </div> 
+                    <div class="form-group">
+                        <p class="h5 py-4"><strong>Nueva fecha devolución</strong></p>
+                        <input type="date" name="inpFechaDevolucion" id="inpFechaDevolucion" class="form-control" value="{{prestamo.fechaDevolucion}}" required>
+                    </div>
+                    <div class="form-group">                    
+                        <button type="submit" class="btn btn-success btn-black text-white">Guardar</button>
+                    </div>                   
+                </form>
+            </div> 
+        </div>       
+    </div>
+</div>
+{% endblock%}

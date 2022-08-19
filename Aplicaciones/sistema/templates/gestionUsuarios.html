@@ -1,0 +1,95 @@
+{% extends "./plantilla.html" %}
+
+{% block title %} Gestión de usuarios {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-dismiss="alert"></button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2>Crear usuario</h2>
+        <div class="card">
+            <div class="card-body">
+              <form action="/registrarUsuario/" method="POST">{% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="inpDocumento" id="inpDocumento" class="form-control" placeholder="Número de identificación" minlength="1" maxlength="50" required>
+                </div>
+                <div class="form-group">    
+                    <!--<input type="text" name="inptipoDocumento" id="inptipoDocumento" class="form-control" placeholder="Tipo de documento" minlength="1" maxlength="3" required>-->
+                    <select class="form-select form-select-lg" name="inptipoDocumento" id="inptipoDocumento">
+                        <option selected>Tipo de documento</option>
+                        <option value="CC">CC</option>
+                        <option value="TI">TI</option>
+                        <option value="NIT">NIT</option>
+                        <option value="CE">CE</option>
+                      </select>                    
+                </div>
+                <div class="form-group">
+                    <input type="text" name="inpPrimerNombre" id="inpPrimerNombre" class="form-control" placeholder="Primer Nombre" minlength="1" maxlength="50" required>
+                </div> 
+                <div class="form-group">
+                    <input type="text" name="inpSegundoNombre" id="inpSegundoNombre" class="form-control" placeholder="Segundo Nombre" minlength="1" maxlength="50">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="inpPrimerApellido" id="inpPrimerApellido" class="form-control" placeholder="Primer Apellido" minlength="1" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="inpSegundoApellido" id="inpSegundoApellido" class="form-control" placeholder="Segundo Apellido" minlength="1" maxlength="50" required>                     
+                </div>
+                <div class="form-group">
+                    <input type="text" name="inpDireccion" id="inpDireccion" class="form-control" placeholder="Dirección residencia" minlength="1" maxlength="100">
+                </div>
+                <div class="form-group">                    
+                    <input type="text" name="inpTelefono" id="inpTelefono" class="form-control" placeholder="Telefono contacto" minlength="1" maxlength="50">
+                </div>
+                <div class="form-group">                    
+                    <button type="submit" class="btn btn-success btn-black text-white">Guardar</button>
+                </div>                
+              </form>
+            </div>
+        </div>        
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Usuarios registrados</h1>
+        <div class="table-responsive py-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Documento</th>
+                        <th>Tipo documento</th>
+                        <th>Primer Nombre</th>
+                        <th>Segundo Nombre</th>
+                        <th>Primer Apellido</th>
+                        <th>Segundo Apellido</th>
+                        <th>Dirección</th>
+                        <th>Telefono</th>    
+                        <th colspan="2">Opciones</th>                                            
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td>{{usuario.numDocumento}}</td>
+                        <td>{{usuario.tipoDocumento}}</td>
+                        <td>{{usuario.primerNombre}}</td>
+                        <td>{{usuario.segundoNombre}}</td>
+                        <td>{{usuario.primerApellido}}</td>
+                        <td>{{usuario.segundoApellido}}</td>  
+                        <td>{{usuario.direccion}}</td>  
+                        <td>{{usuario.telefono}}</td> 
+                        <td><a href="editarUsuarios/{{usuario.numDocumento}}" class="btn btn-info">Editar</a></td>                       
+                        <td><a href="eliminarUsuarios/{{usuario.numDocumento}}" class="btn btn-danger btnEliminar">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
